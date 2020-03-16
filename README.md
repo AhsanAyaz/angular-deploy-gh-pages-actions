@@ -1,6 +1,6 @@
 # :rocket: Angular Deploy gh-pages Actions
 
-![build-test](https://github.com/AhsanAyaz/angular-deploy-ghpages-actions/workflows/build-test/badge.svg) [![View Action](https://img.shields.io/badge/action-marketplace-blue.svg?logo=github&color=orange)](https://github.com/marketplace/actions/angular-deploy-ghpages-actions) [![Version](https://img.shields.io/github/v/release/AhsanAyaz/angular-deploy-ghpages-actions.svg?logo=github)](https://github.com/AhsanAyaz/angular-deploy-ghpages-actions/releases)
+![build-test](https://github.com/AhsanAyaz/angular-deploy-ghpages-actions/workflows/build-test/badge.svg) [![View Action](https://img.shields.io/badge/action-marketplace-blue.svg?logo=github&color=orange)](https://github.com/marketplace/actions/angular-github-pages-actions) [![Version](https://img.shields.io/github/v/release/AhsanAyaz/angular-deploy-ghpages-actions.svg?logo=github)](https://github.com/AhsanAyaz/angular-deploy-ghpages-actions/releases)
 
 This [GitHub action](https://github.com/features/actions) will handle the deploy process of your angular application to [GitHub Pages](https://pages.github.com/). You can configure what folder will be deployed once the build is created. Also, you can specify which branch to deploy to.
 
