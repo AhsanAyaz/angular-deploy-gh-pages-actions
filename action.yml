@@ -1,5 +1,5 @@
 name: 'Angular Github Pages Actions'
-description: 'Actions to super-charge your angular app for GitHub pages. Can run linting, creates the build and then deploys your dist (or specified) folder to Github'
+description: 'Github actions to automagically deploy your angular app to GitHub pages. '
 author: 'Muhammad Ahsan Ayaz (https://github.com/ahsanayaz)'
 branding:
   icon: 'package'
