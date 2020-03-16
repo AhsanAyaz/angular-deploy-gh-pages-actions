@@ -79,6 +79,4 @@ $ npm test
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 
 ## LICENSE 📋
-MIT LICENSE 2020 Muhammad Ahsan Ayaz
-
 [Licensed under the MIT License (the "License")](./LICENSE);
