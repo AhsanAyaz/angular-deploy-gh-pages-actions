@@ -1,16 +1,26 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import * as commands from './commands'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const baseHref = core.getInput('base_href')
+    const buildConfig = core.getInput('build_configuration')
+    const shouldRunLint = core.getInput('run_lint')
+    const accessToken = core.getInput('github_access_token')
+    const buildFolder = core.getInput('build_folder')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    await commands.installDeps()
+    await commands.runLint(shouldRunLint)
+    await commands.createBuild({
+      baseHref,
+      buildConfig
+    })
+    await commands.deployBuild({
+      accessToken,
+      buildFolder
+    })
+    // eslint-disable-next-line no-console
+    console.log('project deployed')
   } catch (error) {
     core.setFailed(error.message)
   }

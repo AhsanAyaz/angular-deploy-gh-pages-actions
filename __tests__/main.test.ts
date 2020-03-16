@@ -1,27 +1,75 @@
-import {wait} from '../src/wait'
 import * as process from 'process'
-import * as cp from 'child_process'
-import * as path from 'path'
+import {runLint, deployBuild, createBuild} from '../src/commands'
+import {execute} from '../src/helpers'
 
-test('throws invalid number', async () => {
-  const input = parseInt('foo', 10)
-  await expect(wait(input)).rejects.toThrow('milliseconds not a number')
+jest.mock('../src/helpers')
+
+test('test does not run lint if run_lint is falsy', async () => {
+  let shouldRunLint: any = 'false'
+  process.env['execute_success'] = 'false'
+  let result = await runLint(shouldRunLint)
+  expect(result).toBe('not running lint')
+  shouldRunLint = false
+  result = await runLint(shouldRunLint)
+  expect(result).toBe('not running lint')
 })
 
-test('wait 500 ms', async () => {
-  const start = new Date()
-  await wait(500)
-  const end = new Date()
-  var delta = Math.abs(end.getTime() - start.getTime())
-  expect(delta).toBeGreaterThan(450)
+test('test runs lint if run_lint is not falsy', async () => {
+  const shouldRunLint: any = true
+  process.env['execute_success'] = 'true'
+  let result = await runLint(shouldRunLint)
+  expect(result).toBe('successfully run lint')
 })
 
-// shows how the runner will run a javascript action with env / stdout protocol
-test('test runs', () => {
-  process.env['INPUT_MILLISECONDS'] = '500'
-  const ip = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecSyncOptions = {
-    env: process.env
-  }
-  console.log(cp.execSync(`node ${ip}`, options).toString())
+test('test throws error for deployment if accessToken is not provided', async () => {
+  const accessToken = ''
+  const buildFolder = './dist/my-app'
+  process.env['execute_success'] = 'true'
+  await expect(
+    deployBuild({
+      accessToken,
+      buildFolder
+    })
+  ).rejects.toThrow(
+    'Github Access token not provided. Please add it to your workflow yml'
+  )
+})
+
+test('test runs fine for deployment if all inputs are correct', async () => {
+  const accessToken = 'some-token'
+  const buildFolder = './dist/my-app'
+  process.env['execute_success'] = 'true'
+  const result = await deployBuild({
+    accessToken,
+    buildFolder
+  })
+  expect(result).toBe('successfully deployed')
+})
+
+test('test runs createBuild with provided values ', async () => {
+  const buildConfig = 'beta'
+  const baseHref = '/my-app/'
+  process.env['execute_success'] = 'true'
+  const result = await createBuild({
+    buildConfig,
+    baseHref
+  })
+  expect(result).toBe('success')
+  expect(execute).toHaveBeenCalledWith(
+    'node_modules/.bin/ng build --configuration=beta --base-href=/my-app/'
+  )
+})
+
+test('test runs createBuild with default values if they are not explicitly provided', async () => {
+  const buildConfig = ''
+  const baseHref = ''
+  process.env['execute_success'] = 'true'
+  const result = await createBuild({
+    buildConfig,
+    baseHref
+  })
+  expect(result).toBe('success')
+  expect(execute).toHaveBeenCalledWith(
+    'node_modules/.bin/ng build --configuration=production --base-href=/'
+  )
 })

@@ -1,10 +1,29 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Angular Github Pages Actions'
+description: 'Actions to super-charge your angular app for GitHub pages. Can run linting, creates the build and then deploys your dist (or specified) folder to Github'
+author: 'Muhammad Ahsan Ayaz (https://github.com/ahsanayaz)'
+branding:
+  icon: 'package'
+  color: 'red',
+  label: 'Angular Github Pages Actions'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  github_access_token:
+    description: "Github access token token used to deploy on gh_pages. You can find it on Github."
+    required: true
+  build_configuration:
+    description: "Build configuration for the angular app"
+    default: "production"
+  base_href:
+    description: "base href for the app"
+    default: "/"
+  deploy_branch:
+    description: "branch on which the angular build will be deployed"
+    default: "gh-pages"
+  build_folder:
+    description: "The folder in which `ng build` provides its output. This is the folder which will be deployed to the `deploy_branch`."
+    default: "dist"
+  run_lint:
+    description: "If the action should run 'ng lint'"
+    default: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
