@@ -3,7 +3,7 @@ description: 'Actions to super-charge your angular app for GitHub pages. Can run
 author: 'Muhammad Ahsan Ayaz (https://github.com/ahsanayaz)'
 branding:
   icon: 'package'
-  color: 'red',
+  color: 'red'
   label: 'Angular Github Pages Actions'
 inputs:
   github_access_token:
@@ -23,6 +23,9 @@ inputs:
     default: "dist"
   run_lint:
     description: "If the action should run 'ng lint'"
+    default: false
+  skip_failure:
+    description: "Will not fail the step if anything fails"
     default: false
 runs:
   using: 'node12'

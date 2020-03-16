@@ -7,15 +7,15 @@ export const execute = async (
   errorMsg: string = 'error'
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
-    const exec = cp.exec
-    exec(command, (err, stdout, stderr) => {
-      if (err) {
-        process.stderr.write(stderr)
-        return reject(errorMsg)
-      }
-      process.stdout.write(stdout)
+    const exec = cp.execSync
+    try {
+      const result = exec(command)
+      process.stdout.write(result)
       resolve(successMsg)
-    })
+    } catch (error) {
+      process.stderr.write(error)
+      reject(errorMsg)
+    }
   })
 }
 
