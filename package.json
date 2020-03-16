@@ -1,5 +1,5 @@
 {
-  "name": "angular-github-pages-actions",
+  "name": "angular-deploy-ghpages-actions",
   "version": "1.0.0",
   "private": true,
   "description": "description: 'Actions to super-charge your angular app for GitHub pages. Can run linting, creates the build and then deploys your dist (or specified) folder to Github",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ahsanayaz/angular-github-pages-actions.git"
+    "url": "git+https://github.com/ahsanayaz/angular-deploy-ghpages-actions.git"
   },
   "keywords": [
     "actions",
