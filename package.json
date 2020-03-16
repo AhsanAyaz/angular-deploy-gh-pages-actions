@@ -1,6 +1,6 @@
 {
   "name": "angular-github-pages-actions",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "description: 'Actions to super-charge your angular app for GitHub pages. Can run linting, creates the build and then deploys your dist (or specified) folder to Github",
   "main": "lib/main.js",

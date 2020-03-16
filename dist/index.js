@@ -3807,6 +3807,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const commands = __importStar(__webpack_require__(599));
+const helpers_1 = __webpack_require__(441);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -3829,7 +3830,10 @@ function run() {
             console.log('project deployed');
         }
         catch (error) {
-            core.setFailed(error.message);
+            const skipFailure = core.getInput('skip_failure');
+            if (helpers_1.isFalsyVal(skipFailure)) {
+                core.setFailed(error.message);
+            }
         }
     });
 }
@@ -7093,15 +7097,16 @@ const github_pages_deploy_action_1 = __importDefault(__webpack_require__(922));
 const cp = __importStar(__webpack_require__(129));
 exports.execute = (command, successMsg = 'success', errorMsg = 'error') => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((resolve, reject) => {
-        const exec = cp.exec;
-        exec(command, (err, stdout, stderr) => {
-            if (err) {
-                process.stderr.write(stderr);
-                return reject(errorMsg);
-            }
-            process.stdout.write(stdout);
+        const exec = cp.execSync;
+        try {
+            const result = exec(command);
+            process.stdout.write(result);
             resolve(successMsg);
-        });
+        }
+        catch (error) {
+            process.stderr.write(error);
+            reject(errorMsg);
+        }
     });
 });
 exports.isFalsyVal = (val) => !val || val === 'false';

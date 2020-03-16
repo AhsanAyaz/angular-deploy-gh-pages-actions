@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as commands from './commands'
+import {isFalsyVal} from './helpers'
 
 async function run(): Promise<void> {
   try {
@@ -22,7 +23,10 @@ async function run(): Promise<void> {
     // eslint-disable-next-line no-console
     console.log('project deployed')
   } catch (error) {
-    core.setFailed(error.message)
+    const skipFailure = core.getInput('skip_failure')
+    if (isFalsyVal(skipFailure)) {
+      core.setFailed(error.message)
+    }
   }
 }
 
