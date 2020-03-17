@@ -1,7 +1,8 @@
-import {isFalsyVal, execute, deployToGithub} from './helpers'
+import {isFalsyVal, execute, deployToGithub, writeToConsole} from './helpers'
 
 export async function runLint(shouldRunLint: string): Promise<string> {
   if (!isFalsyVal(shouldRunLint)) {
+    writeToConsole('Running lint 💪')
     return await execute(
       'node_modules/.bin/ng lint',
       'successfully run lint',
@@ -23,6 +24,7 @@ export async function createBuild(params: {
   if (!baseHref) {
     baseHref = '/'
   }
+  writeToConsole('Creating ng build 💪')
   return await execute(
     `node_modules/.bin/ng build --configuration=${buildConfig} --base-href=${baseHref}`
   )
@@ -38,15 +40,18 @@ export async function deployBuild(deployConfig: {
       'Github Access token not provided. Please add it to your workflow yml'
     )
   }
+  writeToConsole('Deploying build ..💪')
   await deployToGithub({
     accessToken,
     branch: 'gh-pages',
     folder: buildFolder ? buildFolder : './dist',
     workspace: './'
   })
+  writeToConsole('Deployed build successfully! 🎉🎉🎉')
   return 'successfully deployed'
 }
 
 export async function installDeps(): Promise<string> {
+  writeToConsole('Installing dependencies 🏃')
   return await execute('npm install')
 }

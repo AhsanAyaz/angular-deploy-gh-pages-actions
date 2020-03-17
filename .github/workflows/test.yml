@@ -7,22 +7,10 @@ on: # rebuild any PRs and main branch changes
       - 'releases/*'
 
 jobs:
-  build: # make sure build/ci work properly
+  build_and_test_action: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - run: |
         npm install
         npm run all
-  test: # make sure the action works on a clean machine without building
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: ./
-      with:
-        github_access_token: ${{ secrets.ACCESS_TOKEN }}
-        build_configuration: development # The branch the action should deploy from.
-        base_href: /my-app/
-        deploy_branch: gh-pages # The branch the action should deploy to.
-        deploy_folder: dist/my-app # The folder the action should deploy.
-        skip_failure: true

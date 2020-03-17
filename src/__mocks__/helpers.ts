@@ -15,3 +15,5 @@ export const execute = jest.fn(
 )
 
 export const deployToGithub = jest.fn(async () => execute('deploy to github'))
+
+export const writeToConsole = jest.fn(() => {})
