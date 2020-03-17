@@ -29,10 +29,10 @@ jobs:
       uses: AhsanAyaz/angular-deploy-gh-pages-actions
       with:
         github_access_token: ${{ secrets.ACCESS_TOKEN }} # see the Configuration section for how you can create secrets
-        build_configuration: development # The build environment for the app. please look configurations in your angular.json
-        base_href: /ngrx-workshop/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
+        build_configuration: staging # The build environment for the app. please look configurations in your angular.json
+        base_href: /my-project/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
         deploy_branch: gh-pages # The branch the action should deploy to.
-        build_folder: dist # The folder where your project is supposed to be after running ng build by the action.
+        build_folder: dist/my-project # The folder where your project is supposed to be after running ng build by the action.
 ```
 
 If you'd like to make it so the workflow only triggers on push events to specific branches then you can modify the `on` section.
@@ -44,6 +44,7 @@ You have to configure the `with` portion of your workflow file so that the actio
 
 | Key            | Value Information                                                                                                                                                                                                                                                                                                                                                                                                                                              | Type             | Required | Default |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | -------- | -------- |
+| `angular_project_dir`          | The directory of the angular project, in which all the commands will run. This is super handy when you have several projects within a workspace. Or have a demo angular project within a library. Defaults to current workspace directory                                                                                                                                                            | `with`           | **Yes**  |  ""  |
 | `build_configuration`          | You can provide the configuration using which the action should create the build. If nothing is provided, it will run `ng build --prod` by default. See your angular.json file for configurations.                                                                                                                                                            | `with`           | **Yes**  |  "production"  |
 | `base_href`          | Since gh-pages will deploy the app for https://yourgithubusername.github.io/repositoryname/, you need to provide this `base-href` in order to have your project working correctly, since the base-href won't be `'/'` in this case. .                                                                                                                                                            | `with`           | **No**  | "/" |
 | `deploy_branch`          | The branch to which we'll deploy the build folder. .                                                                                                                                                            | `with`           | **No**  | "gh-pages" |

@@ -1,31 +1,47 @@
-import * as core from '@actions/core'
+import {setFailed, getInput} from '@actions/core'
 import * as commands from './commands'
-import {isFalsyVal} from './helpers'
+import {isFalsyVal, navigateToDirectory} from './helpers'
 
 async function run(): Promise<void> {
   try {
-    const baseHref = core.getInput('base_href')
-    const buildConfig = core.getInput('build_configuration')
-    const shouldRunLint = core.getInput('run_lint')
-    const accessToken = core.getInput('github_access_token')
-    const buildFolder = core.getInput('build_folder')
+    let workspaceDir = ''
+    const baseHref = getInput('base_href')
+    const buildConfig = getInput('build_configuration')
+    const shouldRunLint = getInput('run_lint')
+    const accessToken = getInput('github_access_token')
+    const buildFolder = getInput('build_folder')
+    const angularProjectDir = getInput('angular_project_dir')
 
+    // if the angular project directory is not the current directory
+    if (angularProjectDir !== './' && angularProjectDir !== '') {
+      workspaceDir = process.cwd()
+      navigateToDirectory(angularProjectDir)
+    }
     await commands.installDeps()
     await commands.runLint(shouldRunLint)
     await commands.createBuild({
       baseHref,
       buildConfig
     })
+
+    /**
+     * if we changed the workspace directory, we have to navigate back to initial workspace directory
+     * The reason being for deploying to github pages, it works with the .git directory, so we have to be
+     * at the root of the workspace
+     */
+    if (workspaceDir) {
+      navigateToDirectory(workspaceDir)
+    }
+
     await commands.deployBuild({
       accessToken,
       buildFolder
     })
-    // eslint-disable-next-line no-console
-    console.log('project deployed')
+
   } catch (error) {
-    const skipFailure = core.getInput('skip_failure')
+    const skipFailure = getInput('skip_failure')
     if (isFalsyVal(skipFailure)) {
-      core.setFailed(error.message)
+      setFailed(error.message)
     }
   }
 }

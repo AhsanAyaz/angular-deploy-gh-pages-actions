@@ -9,6 +9,9 @@ inputs:
   github_access_token:
     description: "Github access token token used to deploy on gh_pages. You can find it on Github."
     required: true
+  angular_project_dir:
+    description: "The directory of the angular project, in which all the commands will run"
+    default: "./"
   build_configuration:
     description: "Build configuration for the angular app"
     default: "production"
