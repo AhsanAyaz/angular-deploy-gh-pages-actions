@@ -14,3 +14,27 @@ jobs:
     - run: |
         npm install
         npm run all
+
+  test_demo_app: # run the demo app's unit tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: |
+        npm install
+        npm run test:ci
+      working-directory: './jokester'
+
+  test_action_and_deploy_demo: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: 'Deploy demo app using action'
+      uses: ./
+      with:
+        run_lint: true
+        github_access_token: ${{ secrets.ACCESS_TOKEN }}
+        build_configuration: # The branch the action should deploy from.
+        base_href: /angular-deploy-gh-pages-actions/
+        deploy_branch: gh-pages # The branch the action should deploy to.
+        build_folder: jokester/dist/jokester # The folder the action should deploy.
+        angular_project_dir: jokester
