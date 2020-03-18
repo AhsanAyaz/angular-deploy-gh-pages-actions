@@ -37,7 +37,6 @@ async function run(): Promise<void> {
       accessToken,
       buildFolder
     })
-
   } catch (error) {
     const skipFailure = getInput('skip_failure')
     if (isFalsyVal(skipFailure)) {
