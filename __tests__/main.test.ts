@@ -1,5 +1,5 @@
 import * as process from 'process'
-import {runLint, deployBuild, createBuild} from '../src/commands'
+import {createBuild, deployBuild, runLint} from '../src/commands'
 import {execute} from '../src/helpers'
 
 jest.mock('../src/helpers')
@@ -24,11 +24,13 @@ test('test runs lint if run_lint is not falsy', async () => {
 test('test throws error for deployment if accessToken is not provided', async () => {
   const accessToken = ''
   const buildFolder = './dist/my-app'
+  const deployBranch = 'my-custom-branch'
   process.env['execute_success'] = 'true'
   await expect(
     deployBuild({
       accessToken,
-      buildFolder
+      buildFolder,
+      deployBranch
     })
   ).rejects.toThrow(
     'Github Access token not provided. Please add it to your workflow yml'
@@ -38,10 +40,12 @@ test('test throws error for deployment if accessToken is not provided', async ()
 test('test runs fine for deployment if all inputs are correct', async () => {
   const accessToken = 'some-token'
   const buildFolder = './dist/my-app'
+  const deployBranch = 'my-custom-branch'
   process.env['execute_success'] = 'true'
   const result = await deployBuild({
     accessToken,
-    buildFolder
+    buildFolder,
+    deployBranch
   })
   expect(result).toBe('successfully deployed')
 })
