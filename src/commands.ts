@@ -1,4 +1,4 @@
-import { deployToGithub, execute, isFalsyVal, writeToConsole } from './helpers'
+import {deployToGithub, execute, isFalsyVal, writeToConsole} from './helpers'
 
 export async function runLint(shouldRunLint: string): Promise<string> {
   if (!isFalsyVal(shouldRunLint)) {
