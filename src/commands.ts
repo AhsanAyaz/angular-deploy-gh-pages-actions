@@ -1,4 +1,4 @@
-import {isFalsyVal, execute, deployToGithub, writeToConsole} from './helpers'
+import { deployToGithub, execute, isFalsyVal, writeToConsole } from './helpers'
 
 export async function runLint(shouldRunLint: string): Promise<string> {
   if (!isFalsyVal(shouldRunLint)) {
@@ -33,8 +33,9 @@ export async function createBuild(params: {
 export async function deployBuild(deployConfig: {
   accessToken: string
   buildFolder: string
+  deployBranch: string
 }): Promise<string> {
-  const {accessToken, buildFolder} = deployConfig
+  const {accessToken, buildFolder, deployBranch} = deployConfig
   if (!accessToken) {
     throw Error(
       'Github Access token not provided. Please add it to your workflow yml'
@@ -43,7 +44,7 @@ export async function deployBuild(deployConfig: {
   writeToConsole('Deploying build ..💪')
   await deployToGithub({
     accessToken,
-    branch: 'gh-pages',
+    branch: deployBranch ? deployBranch : 'gh-pages',
     folder: buildFolder ? buildFolder : './dist',
     workspace: './'
   })
