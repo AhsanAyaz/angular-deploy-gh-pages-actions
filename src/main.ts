@@ -1,6 +1,6 @@
-import {setFailed, getInput} from '@actions/core'
+import { getInput, setFailed } from '@actions/core'
 import * as commands from './commands'
-import {isFalsyVal, navigateToDirectory} from './helpers'
+import { isFalsyVal, navigateToDirectory } from './helpers'
 
 async function run(): Promise<void> {
   try {
@@ -11,6 +11,8 @@ async function run(): Promise<void> {
     const accessToken = getInput('github_access_token')
     const buildFolder = getInput('build_folder')
     const angularProjectDir = getInput('angular_project_dir')
+    const deployBranch = getInput('deploy_branch')
+
 
     // if the angular project directory is not the current directory
     if (angularProjectDir !== './' && angularProjectDir !== '') {
@@ -35,7 +37,8 @@ async function run(): Promise<void> {
 
     await commands.deployBuild({
       accessToken,
-      buildFolder
+      buildFolder,
+      deployBranch
     })
   } catch (error) {
     const skipFailure = getInput('skip_failure')
