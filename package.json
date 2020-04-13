@@ -1,6 +1,6 @@
 {
   "name": "angular-deploy-gh-pages-actions",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Github actions to automagically deploy your angular app to GitHub pages. ",
   "main": "lib/main.js",
