@@ -74,6 +74,6 @@ test('test runs createBuild with default values if they are not explicitly provi
   })
   expect(result).toBe('success')
   expect(execute).toHaveBeenCalledWith(
-    'node_modules/.bin/ng build --configuration=production --base-href=/'
+    'node_modules/.bin/ng build --configuration=production'
   )
 })
