@@ -21,12 +21,13 @@ export async function createBuild(params: {
   if (!buildConfig) {
     buildConfig = 'production'
   }
-  if (!baseHref) {
-    baseHref = '/'
+  let baseHrefString = ''
+  if (baseHref && baseHref.length > 0) {
+    baseHrefString = '--base-href=' + baseHref
   }
   writeToConsole('Creating ng build 💪')
   return await execute(
-    `node_modules/.bin/ng build --configuration=${buildConfig} --base-href=${baseHref}`
+    `node_modules/.bin/ng build --configuration=${buildConfig} ${baseHrefString}`.trim()
   )
 }
 
