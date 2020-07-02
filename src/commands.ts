@@ -17,13 +17,14 @@ export async function createBuild(params: {
   buildConfig?: string
   baseHref?: string
 }): Promise<string> {
-  let {buildConfig, baseHref} = params
+  const {baseHref} = params
+  let {buildConfig} = params
   if (!buildConfig) {
     buildConfig = 'production'
   }
   let baseHrefString = ''
   if (baseHref && baseHref.length > 0) {
-    baseHrefString = '--base-href=' + baseHref
+    baseHrefString = `--base-href=${baseHref}`
   }
   writeToConsole('Creating ng build 💪')
   return await execute(
