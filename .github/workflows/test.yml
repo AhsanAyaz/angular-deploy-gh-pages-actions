@@ -36,5 +36,5 @@ jobs:
         build_configuration: # The branch the action should deploy from.
         base_href: /angular-deploy-gh-pages-actions/
         deploy_branch: gh-pages # The branch the action should deploy to.
-        build_folder: jokester/dist/jokester # The folder the action should deploy.
+        angular_dist_build_folder: jokester/dist/jokester # The folder the action should deploy.
         angular_project_dir: jokester

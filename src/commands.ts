@@ -43,15 +43,25 @@ export async function deployBuild(deployConfig: {
       'Github Access token not provided. Please add it to your workflow yml'
     )
   }
+  if (buildFolder === '') {
+    throw Error(
+      'The buildFolder can not be an empty string. Please either provide the relative path like "dist/my-project", or not use the input which defaults to the "dist" folder.'
+    )
+  }
   writeToConsole('Deploying build ..💪')
-  await deployToGithub({
-    accessToken,
-    branch: deployBranch ? deployBranch : 'gh-pages',
-    folder: buildFolder ? buildFolder : './dist',
-    workspace: './'
-  })
-  writeToConsole('Deployed build successfully! 🎉🎉🎉')
-  return 'successfully deployed'
+  try {
+    await deployToGithub({
+      accessToken,
+      branch: deployBranch ? deployBranch : 'gh-pages',
+      folder: buildFolder ? buildFolder : './dist',
+      workspace: './'
+    })
+    writeToConsole('Deployed build successfully! 🎉🎉🎉')
+    return 'successfully deployed'
+  } catch (err) {
+    writeToConsole('Failed to deploy build!❌')
+    throw err
+  }
 }
 
 export async function installDeps(): Promise<string> {

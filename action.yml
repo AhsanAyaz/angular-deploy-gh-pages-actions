@@ -21,7 +21,7 @@ inputs:
   deploy_branch:
     description: "branch on which the angular build will be deployed"
     default: "gh-pages"
-  build_folder:
+  angular_dist_build_folder:
     description: "The folder in which `ng build` provides its output. This is the folder which will be deployed to the `deploy_branch`."
     default: "dist"
   run_lint:

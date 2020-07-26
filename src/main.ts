@@ -9,7 +9,7 @@ async function run(): Promise<void> {
     const buildConfig = getInput('build_configuration')
     const shouldRunLint = getInput('run_lint')
     const accessToken = getInput('github_access_token')
-    const buildFolder = getInput('build_folder')
+    const buildFolder = getInput('angular_dist_build_folder')
     const angularProjectDir = getInput('angular_project_dir')
     const deployBranch = getInput('deploy_branch')
 
