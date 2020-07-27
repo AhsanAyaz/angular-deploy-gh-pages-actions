@@ -30,6 +30,9 @@ inputs:
   skip_failure:
     description: "Will not fail the step if anything fails"
     default: false
+  use_404_fallback:
+    description: "Will copy index.html to 404.html so that routed apps have a fallback"
+    default: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
