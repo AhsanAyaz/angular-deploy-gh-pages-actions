@@ -12,7 +12,6 @@ async function run(): Promise<void> {
     const buildFolder = getInput('angular_dist_build_folder')
     const angularProjectDir = getInput('angular_project_dir')
     const deployBranch = getInput('deploy_branch')
-    const use404Fallback = getInput('use_404_fallback')
 
     // if the angular project directory is not the current directory
     if (angularProjectDir !== './' && angularProjectDir !== '') {
@@ -26,13 +25,6 @@ async function run(): Promise<void> {
       buildConfig
     })
 
-    if (use404Fallback === 'true') {
-      commands.copyFiles(
-        `${process.cwd()}/index.html`,
-        `${process.cwd()}/404.html`
-      )
-    }
-
     /**
      * if we changed the workspace directory, we have to navigate back to initial workspace directory
      * The reason being for deploying to github pages, it works with the .git directory, so we have to be
@@ -41,7 +33,10 @@ async function run(): Promise<void> {
     if (workspaceDir) {
       navigateToDirectory(workspaceDir)
     }
-
+    await commands.copyFile(
+      `${buildFolder ? buildFolder : './dist'}/index.html`,
+      `${buildFolder ? buildFolder : './dist'}/404.html`
+    )
     await commands.deployBuild({
       accessToken,
       buildFolder,
