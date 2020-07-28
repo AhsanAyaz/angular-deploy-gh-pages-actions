@@ -1,5 +1,4 @@
 import {deployToGithub, execute, isFalsyVal, writeToConsole} from './helpers'
-import fs from 'fs';
 
 export async function runLint(shouldRunLint: string): Promise<string> {
   if (!isFalsyVal(shouldRunLint)) {
@@ -70,7 +69,7 @@ export async function installDeps(): Promise<string> {
   return await execute('npm install')
 }
 
-export function copyFiles(from: string, to: string): void {
-  fs.copyFileSync(from, to)
+export async function copyFile(from: string, to: string): Promise<void> {
+  await execute(`cp ${from} ${to}`)
   writeToConsole(`Successfully copied ${from} to ${to}!`)
 }
