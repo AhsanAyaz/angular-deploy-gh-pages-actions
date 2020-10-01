@@ -27,7 +27,7 @@
   "author": "Muhammad Ahsan Ayaz (https://github.com/ahsanayaz)",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.0",
+    "@actions/core": "^1.2.6",
     "github-pages-deploy-action": "^3.4.1"
   },
   "devDependencies": {
