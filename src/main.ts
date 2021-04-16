@@ -19,6 +19,7 @@ async function run(): Promise<void> {
       navigateToDirectory(angularProjectDir)
     }
     await commands.installDeps()
+    await commands.installAngularCLIGlobally()
     await commands.runLint(shouldRunLint)
     await commands.createBuild({
       baseHref,

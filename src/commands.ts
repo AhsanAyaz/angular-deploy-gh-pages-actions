@@ -4,7 +4,7 @@ export async function runLint(shouldRunLint: string): Promise<string> {
   if (!isFalsyVal(shouldRunLint)) {
     writeToConsole('Running lint 💪')
     return await execute(
-      'node_modules/.bin/ng lint',
+      'ng lint',
       'successfully run lint',
       'could not run lint'
     )
@@ -28,8 +28,13 @@ export async function createBuild(params: {
   }
   writeToConsole('Creating ng build 💪')
   return await execute(
-    `node_modules/.bin/ng build --configuration=${buildConfig} ${baseHrefString}`.trim()
+    `ng build --configuration=${buildConfig} ${baseHrefString}`.trim()
   )
+}
+
+export async function installAngularCLIGlobally(): Promise<string> {
+  writeToConsole('Installing Angular CLI globally ...🏃')
+  return await execute('npm install -g @angular/cli')
 }
 
 export async function deployBuild(deployConfig: {
