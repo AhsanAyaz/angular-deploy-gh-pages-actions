@@ -6,6 +6,7 @@ async function run(): Promise<void> {
   try {
     let workspaceDir = ''
     const baseHref = getInput('base_href')
+    const projectName = getInput('project_name')
     const buildConfig = getInput('build_configuration')
     const shouldRunLint = getInput('run_lint')
     const accessToken = getInput('github_access_token')
@@ -22,7 +23,8 @@ async function run(): Promise<void> {
     await commands.runLint(shouldRunLint)
     await commands.createBuild({
       baseHref,
-      buildConfig
+      buildConfig,
+      projectName
     })
 
     /**

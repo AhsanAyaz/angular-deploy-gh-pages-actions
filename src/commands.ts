@@ -16,8 +16,9 @@ export async function runLint(shouldRunLint: string): Promise<string> {
 export async function createBuild(params: {
   buildConfig?: string
   baseHref?: string
+  projectName?: string
 }): Promise<string> {
-  const {baseHref} = params
+  const {baseHref, projectName} = params
   let {buildConfig} = params
   if (!buildConfig) {
     buildConfig = 'production'
@@ -27,8 +28,9 @@ export async function createBuild(params: {
     baseHrefString = `--base-href=${baseHref}`
   }
   writeToConsole('Creating ng build 💪')
+  const project = projectName ? `${projectName} ` : ''
   return await execute(
-    `node_modules/.bin/ng build --configuration=${buildConfig} ${baseHrefString}`.trim()
+    `node_modules/.bin/ng build ${project}--configuration=${buildConfig} ${baseHrefString}`.trim()
   )
 }
 
