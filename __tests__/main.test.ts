@@ -24,12 +24,14 @@ test('test runs lint if run_lint is not falsy', async () => {
 test('test throws error for deployment if accessToken is not provided', async () => {
   const accessToken = ''
   const buildFolder = './dist/my-app'
+  const deployRepository = ''
   const deployBranch = 'my-custom-branch'
   process.env['execute_success'] = 'true'
   await expect(
     deployBuild({
       accessToken,
       buildFolder,
+      deployRepository,
       deployBranch
     })
   ).rejects.toThrow(
@@ -40,11 +42,13 @@ test('test throws error for deployment if accessToken is not provided', async ()
 test('test runs fine for deployment if all inputs are correct', async () => {
   const accessToken = 'some-token'
   const buildFolder = './dist/my-app'
+  const deployRepository = ''
   const deployBranch = 'my-custom-branch'
   process.env['execute_success'] = 'true'
   const result = await deployBuild({
     accessToken,
     buildFolder,
+    deployRepository,
     deployBranch
   })
   expect(result).toBe('successfully deployed')
