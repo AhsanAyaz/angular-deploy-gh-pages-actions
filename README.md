@@ -31,6 +31,7 @@ jobs:
         github_access_token: ${{ secrets.ACCESS_TOKEN }} # see the Configuration section for how you can create secrets
         build_configuration: staging # The build environment for the app. please look configurations in your angular.json
         base_href: /my-project/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
+        deploy_repository: username/repository-name # The repository the action should deploy to.
         deploy_branch: gh-pages # The branch the action should deploy to.
         angular_dist_build_folder: dist/my-project # The folder where your project is supposed to be after running ng build by the action.
 ```
