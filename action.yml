@@ -18,6 +18,9 @@ inputs:
   base_href:
     description: "base href for the app"
     default: "/"
+  deploy_repository:
+    description: "repository on which the angular build will be deployed"
+    default: ""
   deploy_branch:
     description: "branch on which the angular build will be deployed"
     default: "gh-pages"
