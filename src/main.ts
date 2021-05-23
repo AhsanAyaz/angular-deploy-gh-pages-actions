@@ -12,6 +12,7 @@ async function run(): Promise<void> {
     const accessToken = getInput('github_access_token')
     const buildFolder = getInput('angular_dist_build_folder')
     const angularProjectDir = getInput('angular_project_dir')
+    const deployRepository = getInput('deploy_repository')
     const deployBranch = getInput('deploy_branch')
 
     // if the angular project directory is not the current directory
@@ -42,6 +43,7 @@ async function run(): Promise<void> {
     await commands.deployBuild({
       accessToken,
       buildFolder,
+      deployRepository,
       deployBranch
     })
   } catch (error) {
