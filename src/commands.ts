@@ -40,7 +40,12 @@ export async function deployBuild(deployConfig: {
   deployRepository: string
   deployBranch: string
 }): Promise<string> {
-  const {accessToken, buildFolder, deployRepository, deployBranch} = deployConfig
+  const {
+    accessToken,
+    buildFolder,
+    deployRepository,
+    deployBranch
+  } = deployConfig
   if (!accessToken) {
     throw Error(
       'Github Access token not provided. Please add it to your workflow yml'
