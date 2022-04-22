@@ -11,6 +11,7 @@ async function run(): Promise<void> {
     const shouldRunLint = getInput('run_lint')
     const accessToken = getInput('github_access_token')
     const buildFolder = getInput('angular_dist_build_folder')
+    const deployFolder = getInput('deploy_folder')
     const angularProjectDir = getInput('angular_project_dir')
     const deployBranch = getInput('deploy_branch')
 
@@ -42,7 +43,8 @@ async function run(): Promise<void> {
     await commands.deployBuild({
       accessToken,
       buildFolder,
-      deployBranch
+      deployBranch,
+      deployFolder
     })
   } catch (error) {
     const skipFailure = getInput('skip_failure')
