@@ -38,8 +38,9 @@ export async function deployBuild(deployConfig: {
   accessToken: string
   buildFolder: string
   deployBranch: string
+  deployFolder: string
 }): Promise<string> {
-  const {accessToken, buildFolder, deployBranch} = deployConfig
+  const {accessToken, buildFolder, deployBranch, deployFolder} = deployConfig
   if (!accessToken) {
     throw Error(
       'Github Access token not provided. Please add it to your workflow yml'
@@ -56,6 +57,7 @@ export async function deployBuild(deployConfig: {
       accessToken,
       branch: deployBranch ? deployBranch : 'gh-pages',
       folder: buildFolder ? buildFolder : './dist',
+      targetFolder: deployFolder ? deployFolder : './',
       workspace: './'
     })
     writeToConsole('Deployed build successfully! 🎉🎉🎉')

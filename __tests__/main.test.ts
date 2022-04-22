@@ -25,12 +25,14 @@ test('test throws error for deployment if accessToken is not provided', async ()
   const accessToken = ''
   const buildFolder = './dist/my-app'
   const deployBranch = 'my-custom-branch'
+  const deployFolder = './target'
   process.env['execute_success'] = 'true'
   await expect(
     deployBuild({
       accessToken,
       buildFolder,
-      deployBranch
+      deployBranch,
+      deployFolder
     })
   ).rejects.toThrow(
     'Github Access token not provided. Please add it to your workflow yml'
@@ -41,11 +43,13 @@ test('test runs fine for deployment if all inputs are correct', async () => {
   const accessToken = 'some-token'
   const buildFolder = './dist/my-app'
   const deployBranch = 'my-custom-branch'
+  const deployFolder = './target'
   process.env['execute_success'] = 'true'
   const result = await deployBuild({
     accessToken,
     buildFolder,
-    deployBranch
+    deployBranch,
+    deployFolder
   })
   expect(result).toBe('successfully deployed')
 })
