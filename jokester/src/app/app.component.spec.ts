@@ -1,7 +1,8 @@
-import { TestBed, async, inject } from '@angular/core/testing';
-import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { AppComponent } from './app.component';
 import { JokesService } from './services/jokes.service';
 
 const DUMMY_JOKE = {
@@ -17,21 +18,19 @@ class JokesServiceMock {
 }
 
 describe('AppComponent', () => {
-  let jokesService;
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  let jokesService: JokesService;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         HttpClientModule
       ],
       declarations: [
         AppComponent
       ],
-      providers: [{
-        provide: JokesServiceMock, useClass: JokesServiceMock
-      }]
     }).compileComponents();
     jokesService = TestBed.inject(JokesService);
-  }));
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
