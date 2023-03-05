@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { IJokeRes } from './interfaces/joke-response.interface';
 import { JokesService } from './services/jokes.service';
@@ -8,7 +8,7 @@ import { JokesService } from './services/jokes.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   jokes: string[] = [];
   isLoading = false;
   jokesService = inject(JokesService);

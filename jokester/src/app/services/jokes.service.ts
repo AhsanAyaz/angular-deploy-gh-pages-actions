@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IJokeRes } from '../interfaces/joke-response.interface';
 
@@ -7,8 +7,7 @@ import { IJokeRes } from '../interfaces/joke-response.interface';
   providedIn: 'root'
 })
 export class JokesService {
-  constructor(private http: HttpClient) {}
-
+  http = inject(HttpClient)
   getJoke(): Observable<IJokeRes> {
     return this.http.get<IJokeRes>('https://icanhazdadjoke.com/', {
       headers: {

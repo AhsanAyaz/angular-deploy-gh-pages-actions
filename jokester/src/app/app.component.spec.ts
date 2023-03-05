@@ -11,12 +11,6 @@ const DUMMY_JOKE = {
   status: 200
 };
 
-class JokesServiceMock {
-  getJokes() {
-    return of(DUMMY_JOKE);
-  }
-}
-
 describe('AppComponent', () => {
   let jokesService: JokesService;
   beforeEach(async () => {
