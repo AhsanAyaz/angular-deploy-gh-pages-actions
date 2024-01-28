@@ -4,7 +4,7 @@ export async function runLint(shouldRunLint: string): Promise<string> {
   if (!isFalsyVal(shouldRunLint)) {
     writeToConsole('Running lint 💪')
     return await execute(
-      'node_modules/.bin/ng lint',
+      'npx ng lint',
       'successfully run lint',
       'could not run lint'
     )
@@ -30,7 +30,7 @@ export async function createBuild(params: {
   writeToConsole('Creating ng build 💪')
   const project = projectName ? `${projectName} ` : ''
   return await execute(
-    `node_modules/.bin/ng build ${project}--configuration=${buildConfig} ${baseHrefString}`.trim()
+    `npx ng build ${project}--configuration=${buildConfig} ${baseHrefString}`.trim()
   )
 }
 

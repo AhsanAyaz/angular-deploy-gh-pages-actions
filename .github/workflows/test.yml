@@ -9,6 +9,7 @@ on: # rebuild any PRs and main branch changes
 jobs:
   build_and_test_action: # make sure build/ci work properly
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v3
     - run: |
@@ -17,6 +18,7 @@ jobs:
 
   test_demo_app: # run the demo app's unit tests
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v3
     - run: |
@@ -25,7 +27,13 @@ jobs:
       working-directory: './jokester'
 
   test_action_and_deploy_demo: # make sure the action works on a clean machine without building
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      max-parallel: 1 # make sure we don't run multiple jobs at once to not interfere with each other when deploying 
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
     steps:
     - uses: actions/checkout@v3
     - name: 'Deploy demo app using action'
