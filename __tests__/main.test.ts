@@ -60,7 +60,7 @@ test('test runs createBuild with provided values ', async () => {
   })
   expect(result).toBe('success')
   expect(execute).toHaveBeenCalledWith(
-    'node_modules/.bin/ng build --configuration=beta --base-href=/my-app/'
+    'npx ng build --configuration=beta --base-href=/my-app/'
   )
 })
 
@@ -74,6 +74,6 @@ test('test runs createBuild with default values if they are not explicitly provi
   })
   expect(result).toBe('success')
   expect(execute).toHaveBeenCalledWith(
-    'node_modules/.bin/ng build --configuration=production'
+    'npx ng build --configuration=production'
   )
 })
